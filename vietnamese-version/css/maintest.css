@@ -1,0 +1,471 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 16, 2016, 8:14:29 PM
+    Author     : DuyNguyen
+*/
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 4, 2016, 8:46:01 PM
+    Author     : DuyNguyen
+*/
+
+section.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: auto auto auto auto;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  margin: auto auto auto auto;
+  transform: translate(-50%, -50%);
+}
+
+.right {
+    position: absolute;
+    right: 0px;
+    padding-top: 20px;
+}
+
+body {
+    background-color: #747D7D !important;
+    height:100%;
+    margin:0;
+    padding:0;
+    position: relative;
+    font-family: sans-serif;
+}
+
+
+/* OVERLAY WINDOW*/
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+ }
+
+#overlay div {
+     width: 90vw;
+     height: 85vh;
+     margin: 8vh auto;
+     background-color: #ffffff;
+    /*border:1px solid #000000;*/
+     padding:15px;
+     text-align:center;
+    position:relative;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+#overlay div :before, #overlay div :after
+{
+    content:"";
+    position:absolute; 
+    z-index:-1;
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:0;
+    bottom:0;
+    left:10px;
+    right:10px;
+    border-radius:100px / 10px;
+} 
+#overlay div:after
+{
+    right:10px; 
+    left:auto; 
+    transform:skew(8deg) rotate(3deg);
+}
+
+
+/* THE CLOSE BUTTON*/
+[class*='close-'] {
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+.close-thik {
+  content: '✖'; /* UTF-8 symbol */
+}
+.close-thik:after {
+  content: '✖'; /* UTF-8 symbol */
+}
+
+
+.greenButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 10px 10px;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+}
+
+/*COLOR SELECTOR*/
+.color-cell{
+    height: 10px;
+    width: 10px;
+    display: inline-block; 
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.color-cell:hover{
+    cursor: pointer;
+}
+
+.circleBase {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+}
+
+.color-cell {
+    width: 20px;
+    height: 20px;
+    background: yellow;
+    border: 3px solid white;
+    margin-left: 40px;
+    margin-right: 40px;
+    display: inline-block;
+    
+}
+
+.Color-Layout{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+
+.color_thumnail{
+    margin:auto;
+}
+/*//// PROGRESS BAR*/
+#myProgress {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background-color: #777;
+    display: none;
+}
+#myBar {
+    position: absolute;
+    width: 95%;
+    height: 8px;
+    background-color: #4CAF50;
+}
+
+/*// For the anwer box*/
+.answerbox{
+    width: 80vw;
+    height: 50vh;
+    /*border:1px solid #fff;*/
+    display: block;
+    text-align: center;
+    font-size: 150%;
+}
+
+.ans-block {
+    text-align:center;
+}
+
+.ans-block:hover {
+    cursor: pointer;
+}
+.ans-center {
+    margin:auto auto auto auto;
+}
+.ans-left {
+    margin:auto auto auto 0;
+    background-color:red;
+}
+.ans-right {
+    margin:auto 0 auto auto;
+    background-color:yellow;
+}
+
+.like-button{
+    width:200px;
+    height:200px;
+    cursor: pointer;
+}
+
+.like-button:hover{
+    cursor: pointer;
+}
+
+.like-button-small{
+    width:10vh;
+    height:10vh;
+}
+
+
+.like-image-small {
+  width:9vh;
+  height:9vh;
+}
+
+.like-button-very-small{
+    width:5vh;
+    height:5vh;
+}
+
+.like-image-very-small {
+  width:4.5vh;
+  height:4.5vh;
+}
+
+/*// SLIDER BAR*/
+*, *:before, *:after {
+  box-sizing: content-box;
+}
+
+.range-slider {
+  /*margin: 60px 0 0 0%;*/
+  margin: 0 0 0 0%;
+}
+
+.range-slider {
+  width: 30%;
+}
+
+.range-slider__range {
+  -webkit-appearance: none;
+  width: calc(100% - (43px));
+  height: 1vh;
+  border-radius: 5px;
+  background: #d7dcdf;
+  display: inline-block;
+  outline: none;
+  padding: 0;
+  height: 100%;
+}
+.range-slider__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 2vh;
+  height: 2vh;
+  border-radius: 50%;
+  background: #2c3e50;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+.range-slider__range::-webkit-slider-thumb:hover {
+  background: #1abc9c;
+}
+.range-slider__range:active::-webkit-slider-thumb {
+  background: #1abc9c;
+}
+.range-slider__range::-moz-range-thumb {
+  width: 2vh;
+  height: 2vh;
+  border: 0;
+  border-radius: 50%;
+  background: #2c3e50;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+.range-slider__range::-moz-range-thumb:hover {
+  background: #1abc9c;
+}
+.range-slider__range:active::-moz-range-thumb {
+  background: #1abc9c;
+}
+
+.range-slider__value {
+  position: relative;
+  width: 4vw;
+  color: #fff;
+  line-height: 1.6vh;
+  text-align: center;
+  border-radius: 3px;
+  background: #2c3e50;
+  padding: 5px 10px;
+  /*margin-left: 8px;*/
+  display: inline-block;
+}
+.range-slider__value:after {
+  position: absolute;
+  top: 8px;
+  /*left: -7px;*/
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-right: 7px solid #2c3e50;
+  border-bottom: 7px solid transparent;
+  content: '';
+}
+
+::-moz-range-track {
+  background: #d7dcdf;
+  border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+  border: 0;
+}
+
+/*Sub user_answer_box*/
+.sub-answer-box{
+    display: block;
+/*    text-align: right;*/
+    margin-top: 0.6vh;
+    margin-top: 1.0vh;
+}
+
+/* Decorate the message box heading*/ 
+.message-title{
+    color: #4CAF50;
+    font-size: 160%;
+    font-weight: bold;
+}
+
+/* CSS form */
+input[type=text], select {
+    width: 16vw;
+    padding: 6px 10px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 20vw;
+    background-color: #4CAF50;
+    color: white;
+    padding: 7px 10px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+
+#shadowRemindText {
+     /*visibility: hidden;*/
+     visibility: hidden;
+     position: absolute;
+     margin-left: 3vw;
+     margin-right: 3vw;
+     width:100%;
+     height:100%;
+     text-align:left;
+     z-index: 1000;
+     color:#ccc;
+     font-size: 180%;
+     font-family: "Comic Sans MS", cursive, sans-serif;
+ }
+ 
+ .white-boder{
+
+     text-shadow: 3px 0 0 #fff, -3px 0 0 #fff, 0 3px 0 #fff, 0 -3px 0 #fff, 2px 2px #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 1px 0 #fff;
+ }
+ 
+#tutorialText {
+     /*visibility: hidden;*/
+     visibility: hidden;
+     position: absolute;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+     color:#ccc;
+     font-size: 160%;
+     font-family: "Comic Sans MS", cursive, sans-serif;
+     padding-top: 6vh;
+ }
+ 
+ /*// For the tool tips*/
+ .arrow {
+/*  position: fixed;*/
+  bottom: 0;
+  left: 50%;
+  margin-left:-20px;
+}
+
+.bounce {
+	-webkit-animation-name: bounce;
+	-moz-animation-name: bounce;
+	-o-animation-name: bounce;
+	animation-name: bounce;
+}
+.animated{-webkit-animation-fill-mode:both;
+-moz-animation-fill-mode:both;
+-ms-animation-fill-mode:both;
+-o-animation-fill-mode:both;
+
+            animation-iteration-count: infinite;
+       -moz-animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+
+animation-fill-mode:both;
+-webkit-animation-duration:2s;
+-moz-animation-duration:2s;
+-ms-animation-duration:2s;
+-o-animation-duration:2s;
+animation-duration:2s;
+}
+
+
+@-webkit-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);}	40% {-webkit-transform: translateY(-30px);}
+	60% {-webkit-transform: translateY(-15px);}
+}
+
+@-moz-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-moz-transform: translateY(0);}
+	40% {-moz-transform: translateY(-30px);}
+	60% {-moz-transform: translateY(-15px);}
+}
+
+@-o-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {-o-transform: translateY(0);}
+	40% {-o-transform: translateY(-30px);}
+	60% {-o-transform: translateY(-15px);}
+}
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+	40% {transform: translateY(-30px);}
+	60% {transform: translateY(-15px);}
+}
+
+/*Tool tip*/
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
