@@ -1,0 +1,376 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 4, 2016, 8:46:01 PM
+    Author     : DuyNguyen
+*/
+
+section.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.right {
+    position: absolute;
+    right: 0px;
+    padding-top: 20px;
+}
+
+body {
+    background-color: #747D7D;
+    height:100%;
+    margin:0;
+    padding:0;
+    position: relative;
+    font-family: sans-serif;
+}
+
+#question{
+    font-weight: bold;
+}
+#dishQuestionAnswer{
+    padding-left: 20px;
+    margin-left: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 301px; 
+    height: 296px; 
+    display: inline-block; 
+    background-color: #4f5555; 
+    color: #ffffff;
+    overflow:auto; 
+    border-style: outset;
+    border-width: 1px;
+}
+
+.effect4
+{
+  
+}
+.effect4:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  right: 10px;
+  left: auto;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  box-shadow: 0 15px 10px #777;
+  transform: rotate(3deg);
+}
+
+
+#dishDisplay{
+    width: 301px; 
+    height: 296px; 
+    display: inline-block; 
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.control {
+	font-size: 18px;
+	position: relative;
+	display: inline;
+	margin-bottom: 15px;
+	padding-left: 30px;
+        padding-right: 50px;
+	cursor: pointer;
+}
+
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.control__indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+	border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+	background: #ccc;
+}
+
+.control:hover{
+    background-color: #ffff66;
+    color: #000000
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+	background: #2aa1c0;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+	background: #0e647d;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+	position: absolute;
+	display: none;
+	content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+	top: 4px;
+	left: 8px;
+	width: 3px;
+	height: 8px;
+	transform: rotate(45deg);
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+	border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control--radio .control__indicator:after {
+	top: 7px;
+	left: 7px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+/* Disabled circle colour */
+.control--radio input:disabled ~ .control__indicator:after {
+	background: #7b7b7b;
+}
+
+
+/* OVERLAY WINDOW*/
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+ }
+
+#overlay div {
+     width: 90vw;
+     height: 85vh;
+     margin: 100px auto;
+     background-color: #ffffff;
+    /*border:1px solid #000000;*/
+     padding:15px;
+     text-align:center;
+    position:relative;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+#overlay div :before, #overlay div :after
+{
+    content:"";
+    position:absolute; 
+    z-index:-1;
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:0;
+    bottom:0;
+    left:10px;
+    right:10px;
+    border-radius:100px / 10px;
+} 
+#overlay div:after
+{
+    right:10px; 
+    left:auto; 
+    transform:skew(8deg) rotate(3deg);
+}
+
+
+/* THE CLOSE BUTTON*/
+[class*='close-'] {
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+.close-thik {
+  content: '✖'; /* UTF-8 symbol */
+}
+.close-thik:after {
+  content: '✖'; /* UTF-8 symbol */
+}
+
+/* THE SCREEN QUALIFY TEST */
+.color-assesment-theme{
+    background-color: #000000; 
+    width: 760px;
+    height: 400px;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+.color-box{
+    width: 60px; 
+    height: 60%; 
+    border: 1px solid #fff; 
+    display: inline-table;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+.double-color-box{
+    width: 125px; 
+    height: 120px; 
+/*    border: 1px solid #fff; */
+    display: inline-table;
+    margin-left: 26px;
+    margin-right: 26px;
+    align-self: center;
+}
+
+.single-color-box{
+    width: 60px; 
+    height: 60px; 
+    border: 1px solid #fff; 
+    display: inline-table;
+}
+
+.single-color-box:hover{
+    border: 1px solid #0f0; 
+}
+
+.color-box:hover{
+    border: 1px solid #4CAF50; 
+}
+
+#color-question{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.onoffswitch {
+    margin-left: 15px;
+    margin-right: 15px;
+    display: inline-table;
+    position: relative; width: 60px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 15px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 15px; padding: 0; line-height: 15px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "YES";
+    padding-left: 8px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "NO";
+    padding-right: 8px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 15px; margin: 0px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 41px;
+    border: 2px solid #999999; border-radius: 15px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+.greenButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 10px 10px;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+}
+
+/* Decorate the message box heading*/ 
+.message-title{
+    color: #4CAF50;
+    font-size: 160%;
+    font-weight: bold;
+}
+
+/* Full screen styles */
+/* Webkit */
+:-webkit-full-screen body {
+  background-color: #747D7D;
+}
+
+/* Firefox */
+:-moz-full-screen body {
+  background-color: #747D7D;
+}
+
+/* IE */
+:-ms-full-screen body {
+  background-color: #747D7D;
+}
