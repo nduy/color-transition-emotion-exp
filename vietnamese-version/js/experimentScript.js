@@ -37,13 +37,20 @@ var waiting_flag=false;         // This flag indicate that the system is waiting
 var tutorial_mode=true;         // If this flag is on, the message "now you can choose the emotion...
 var transition_timeout=null;    // 
 var total_num_sample = 66;      // Total number of sample
+var exp_nom = 1;                // The number assgined to experiment: 
+                                // . 1: 24 samples: Hue to Hue, mid-Hue to mid-Hue
+                                // . 2: 40 samples: Hue to mid-Hue
+                                // . 3: 64 samples: Mix
 $(document).ready(function(){
  
     overlay(2);
     $(window).blur(function(e) {
         // Do Blur Actions Here
         window.stop();
-        alert(":) Bạn cần tí thời gian nghỉ ngơi? Không vấn đề gì, hãy bấm OK khi bạn muốn tiếp tục. ^_^");
+		if (document.getElementById("task_instructions").style.display != "block"){
+			alert(":) Bạn cần tí thời gian nghỉ ngơi? Không vấn đề gì, hãy bấm OK khi bạn muốn tiếp tục. ^_^");
+		}
+        
     });
     $(window).focus(function(e) {
         // Do Focus Actions Here
@@ -88,18 +95,6 @@ function overlay(index) {
                 unique_colors.push(Yellow_Colors[unique_colors_index[3]-1]);
                 unique_colors.push(unique_colors[0]);
                 for (i=0;i<4; i++) intermidate_colors.push(IntermidiateNCS(unique_colors[i],unique_colors[i+1]));
-                // Compute samples
-                prepareColorSamples(unique_colors,intermidate_colors);
-                // Shffle them
-                //alert(Color_Samples);
-                Color_Samples = shuffle(Color_Samples);
-                Color_Samples.unshift({former: "NCS S 9000-N",latter:"NCS S 0300-N"},{former: "NCS S 0300-N",latter:"NCS S 9000-N"}); // Push 3 first warm up samples
-                //alert(Color_Samples);
-//                for (i = 0 ; i< Color_Samples.length; i++)
-//                    console.log(Color_Samples[i].former + "   " + Color_Samples[i].latter);
-                //alert(Color_Samples);
-                //  Restore the unique_colors by remove the 5th element (index = 4)
-                unique_colors.splice(4,1);
                 elx = document.getElementById("task_instructions");
                 elx.style.display = (elx.style.display == "block") ? "none" : "block";
                 
@@ -937,40 +932,71 @@ function shuffle(array) {
  * @Return: no return. It edit variable Color_Samples directly
  */
 function prepareColorSamples(unqHue,imtHue) {
-   // Within catefory pairs
-    for (i=0;i<4;i++)
-        for (j=0;j<4;j++) {
-            var obj = {
-                former: unqHue[i],
-                latter: unqHue[j]
-            };
-            Color_Samples.push(obj);
-        }
-    for (i=0;i<4;i++)
-        for (j=0;j<4;j++) {
-            var obj = {
-                former: imtHue[i],
-                latter: imtHue[j]
-            };
-            Color_Samples.push(obj);
-        }
-    // Between catefory pairs
-    for (i=0;i<4;i++)
-        for (j=0;j<4;j++) {
-            var obj = {
-                former: unqHue[i],
-                latter: imtHue[j]
-            };
-            Color_Samples.push(obj);
-        }
-    for (i=0;i<4;i++)
-        for (j=0;j<4;j++) {
-            var obj = {
-                former: imtHue[i],
-                latter: imtHue[j]
-            };
-            Color_Samples.push(obj);
-        }
+    
+    if (exp_nom===1 || exp_nom===3){
+        // Within catefory pairs
+        Hue_Hue_samples = [];
+        for (i=0;i<4;i++)
+            for (j=0;j<4;j++) {
+                var obj = {
+
+                    former: unqHue[i],
+                    latter: unqHue[j]
+                };
+                Hue_Hue_samples.push(obj);
+            }
+        Color_Samples = Color_Samples.concat(shuffle(Hue_Hue_samples)); // SHuffle and concatinate
+        //alert(Hue_Hue_samples.length);
+
+        imtHue_imtHue_samples = [];
+
+
+
+        for (i=0;i<4;i++)
+            for (j=0;j<4;j++) {
+                var obj = {
+
+                    former: imtHue[i],
+                    latter: imtHue[j]
+                };
+                imtHue_imtHue_samples.push(obj);
+            }
+        Color_Samples = Color_Samples.concat(shuffle(imtHue_imtHue_samples)); // SHuffle and concatinate
+        //alert(imtHue_imtHue_samples.length);
+    }
+   
+    if (exp_nom===2 || exp_nom===3){
+
+
+
+        // Between catefory pairs
+        Hue_imtHue_samples = [];
+        for (i=0;i<4;i++)
+            for (j=0;j<4;j++) {
+                var obj = {
+
+                    former: unqHue[i],
+                    latter: imtHue[j]
+                };
+                Hue_imtHue_samples.push(obj);
+            }
+
+
+
+        for (i=0;i<4;i++)
+            for (j=0;j<4;j++) {
+                var obj = {
+
+                    former: imtHue[i],
+                    latter: imtHue[j]
+                };
+                Hue_imtHue_samples.push(obj);
+            }
+        Color_Samples = Color_Samples.concat(shuffle(Hue_imtHue_samples)); // SHuffle and concatinate
+        //alert(Hue_imtHue_samples.length);
+    }
+    
+    total_num_sample = Color_Samples.length;
 }
 
 /**
@@ -1031,7 +1057,7 @@ function handleUserEmotion(mode,choice){
                 tutorial_mode=false;
                 sendToDB(userID,user_age,user_gender,Color_Samples[0],mode,choice,latest_stimulus_start_time,user_clicking_time);
                 // Update the square progress
-                var percentage = Math.round(processed_count/total_num_sample*100);
+                var percentage = Math.floor((processed_count-1)/total_num_sample*100);
                 str ="c100 p"+ percentage +" dark small green rightAlign";
 		$("#overalProgress").attr("class", str).css("opacity","0.7");
 //                console.log($("#overalProgress"));
@@ -1040,11 +1066,11 @@ function handleUserEmotion(mode,choice){
 //		$("#overalValue").text(val).css("position","absolute").css("z-index","1");
 //                console.log($("#overalValue"));
             }
-            if (processed_count===22){
+			if ((processed_count-1)===Math.round(total_num_sample/3)){
                 alert(" :o) Bạn đã chinh phục một phần ba đoạn đường rồi đấy. Bạn có muốn nghỉ ngơi một tí không? \nVui lòng bấm OK khi bạn sẵn sàng tiếp tục.");
-            } else if (processed_count===50){
+            } else if ((processed_count-1)===Math.round(total_num_sample*2/3)){
                 alert(" :-) Chỉ còn một vài mẫu nữa thôi là bạn sẽ hoàn thành thí nghiệm. You are almost there. Bạn có muốn nghỉ ngơi một tí không? \nVui lòng bấm OK khi bạn sẵn sàng tiếp tục.");
-            }
+			}
             // Load new sample   
             Color_Samples.splice(0,1);
             loadNewSample("layer_1","layer_2"); 
@@ -1085,9 +1111,9 @@ function handleUserEmotion(mode,choice){
 //		$("#overalValue").text(val).css("position","absolute").css("z-index","1");
 //                console.log($("#overalValue"));
             }
-            if (processed_count===22){
+            if ((processed_count-1)===Math.round(total_num_sample/3)){
                 alert(" :o) Bạn đã đi được 1/3 chặng đường rồi đấy. Bạn nó muốn nghỉ ngơi một lát không? \nHãy bấm OK để tiếp tục thí nghiệm.");
-            } else if (processed_count===50){
+            } else if ((processed_count-1)===Math.round(total_num_sample*2/3)){
                 alert(" :-) Tuyệt vời! Chỉ còn vài mẫu nữa thôi là bàn sẽ hoàn thành thí nghiệm. \nBạn nó muốn nghỉ ngơi một lát không? \nHãy bấm OK để tiếp tục thí nghiệm.");
             }
                 
@@ -1178,14 +1204,29 @@ function ResetSliders(){
  * Get user option and initialize the stimulus
  * 
  */
-function GetOptionAndInitialize(){
+function GetOptionAndInitialize(expID){
     var uid =  $( "#fname").val();          // Get entered user Name
     $("#overalProgress").css("visibility","visible").css("opacity","0.6");
-    
+	exp_nom = expID;
+    //alert(userID);
     if (uid!==''){
-       userID = userID + '_' +$( "#fname").val();
+       userID = userID + '_' +$( "#fname").val()+"_m"+expID;
        user_age = $( "#subAge option:selected").text();        // Get selected age grup;
        user_gender = $( "#subGender option:selected").text();        // Get selected gender
+        // Compute samples
+        prepareColorSamples(unique_colors,intermidate_colors);
+        //window.alert(Color_Samples);
+        // Shffle them
+        //alert(Color_Samples);
+        Color_Samples.unshift({former: "NCS S 9000-N",latter:"NCS S 0300-N"},{former: "NCS S 0300-N",latter:"NCS S 9000-N"}); // Push 3 first warm up samples
+        //alert(Color_Samples);
+//                for (i = 0 ; i< Color_Samples.length; i++)
+//                    console.log(Color_Samples[i].former + "   " + Color_Samples[i].latter);
+        //alert(Color_Samples);
+        //  Restore the unique_colors by remove the 5th element (index = 4)
+        unique_colors.splice(4,1);
+                
+//       alert(userID+"  "+user_age+"  "+user_gender);
        // Go to full screen
         if (screenfull.enabled) {
         screenfull.request();
