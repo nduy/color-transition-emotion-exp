@@ -47,7 +47,9 @@ $(document).ready(function(){
     $(window).blur(function(e) {
         // Do Blur Actions Here
         window.stop();
-        alert("Oops! Need some break? No problem, just press OK when you want to continue. ^_^");
+		if (document.getElementById("task_instructions").style.display != "block"){
+			alert("Oops! Need some break? No problem, just press OK when you want to continue. ^_^");
+		}
     });
     $(window).focus(function(e) {
         // Do Focus Actions Here
