@@ -80,18 +80,62 @@ and open the template in the editor.
                     <br><br> <font size="4" color="#4CAF50"><b>Những lưu ý</b></font><br>
                      Bạn nên thực hiện thí nghiệm này ở một căn phòng với càng ít ánh sáng càng tốt. Nếu có thể hãy giảm độ sáng hoặc tắt bớt đèn trong phòng. Đồng thời, xin vui lòng tập trung vào thí nghiệm và tránh chuyển sang chương trình khác khi thí nghiệm đang được thực hiện.
                 </span> 
-				<span id="" style="width: 30vw; display: inline-block; text-align: center; vertical-align: top; padding-left: 0.5vw;" > 
-					<iframe width="560" height="315"src="https://www.youtube.com/embed/NnxLxUowxe8"></iframe>
+				<span id="player" style="width: 30vw; display: inline-block; text-align: center; vertical-align: top; padding-left: 0.5vw;" > 
+					<script>
+						  // 2. This code loads the IFrame Player API code asynchronously.
+						  var tag = document.createElement('script');
+
+						  tag.src = "https://www.youtube.com/iframe_api";
+						  var firstScriptTag = document.getElementsByTagName('script')[0];
+						  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+						  // 3. This function creates an <iframe> (and YouTube player)
+						  //    after the API code downloads.
+						  var player;
+						  function onYouTubeIframeAPIReady() {
+							player = new YT.Player('player', {
+							  height: '340',
+							  width: '560',
+							  playerVars: {
+										autoplay: 0,
+										loop: 1,
+										controls: 1,
+										showinfo: 0,
+										autohide: 1,
+										modestbranding: 1,
+										vq: "auto"},
+							  videoId: 'NnxLxUowxe8',
+							  events: {
+								'onReady': onPlayerReady,
+								'onStateChange': onPlayerStateChange
+							  }
+							});
+						  }
+
+						  // 4. The API will call this function when the video player is ready.
+						  function onPlayerReady(event) {
+							//event.target.playVideo();
+							player.mute();
+						  }
+
+						  var done = false;
+						  function onPlayerStateChange(event) {
+							
+						  }
+						  function stopVideo() {
+							player.stopVideo();
+						  }
+						</script>
 					HƯỚNG DẪN THỰC HIỆN
 				</span>
 				<span style="display: block; margin-top: 5vh;">
 					 <form style="display: inline-block; text-align: right;">
 						<br><font size="4" color="#4CAF50"><b>Một vài thông tin về bạn...</b></font> <br>
 						<label for="fname">Tên của bạn</label> 
-						<input type="text" id="fname" name="fname" required style="width: 22.5vw;"><br>
+						<input type="text" id="fname" name="fname" required style="width: 17.5vw;"><br>
 						<label for="fname"><i>* Vui lòng điền bằng Tiếng Việt không dấu</i></label> <br>
 						<label style="margin-left: 1vw;" for="expMode">Tuổi</label>
-						<select id="subAge" name="subAge" required style="width: 9vw;">
+						<select id="subAge" name="subAge" required style="width: 4vw;">
 						  <option value="19to20">19-29</option>
 						  <option value="30to39">30-39</option>
 						  <option value="40to60">40-60</option>
